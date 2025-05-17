@@ -1,32 +1,51 @@
-export const initialStore=()=>{
-  return{
-    message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ]
-  }
-}
+const getState = ({ getStore, getActions, setStore }) => {
+    return {
+        store: {
+            contacts: [
+                {
+                    id: 1,
+                    full_name: "Gaturro Peluso",
+                    email: "peludito23@meow.com",
+                    phone: "555-1234",
+                    address: "123 Plaza Pelusa"
+                },
+                {
+                    id: 2,
+                    full_name: "Katrina Rawr",
+                    email: "Katrina@meow.com",
+                    phone: "555-5678",
+                    address: "456 Calle Sardina"
+                }
+            ]
+        },
 
-export default function storeReducer(store, action = {}) {
-  switch(action.type){
-    case 'add_task':
+        actions: {
+            loadContacts: () => {
+               
+            },
 
-      const { id,  color } = action.payload
+            addContact: (newContact) => {
+                const store = getStore();
+                const newId = store.contacts.length > 0 ? store.contacts[store.contacts.length - 1].id + 1 : 1;
+                const updatedContacts = [...store.contacts, { ...newContact, id: newId }];
+                setStore({ contacts: updatedContacts });
+            },
 
-      return {
-        ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
-      };
-    default:
-      throw Error('Unknown action.');
-  }    
-}
+            updateContact: (updatedContact, id) => {
+                const store = getStore();
+                const updatedContacts = store.contacts.map(c =>
+                    c.id === parseInt(id) ? { ...updatedContact, id: parseInt(id) } : c
+                );
+                setStore({ contacts: updatedContacts });
+            },
+
+            deleteContact: (id) => {
+                const store = getStore();
+                const updatedContacts = store.contacts.filter(c => c.id !== id);
+                setStore({ contacts: updatedContacts });
+            }
+        }
+    };
+};
+
+export default getState;
