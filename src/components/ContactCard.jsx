@@ -8,8 +8,14 @@ export const ContactCard = ({ contact }) => {
 
     return (
         <div className="card mb-3 shadow-sm">
-            <div className="card-body d-flex justify-content-between align-items-center">
-                <div>
+            <div className="card-body d-flex align-items-center gap-3">
+                <img
+                    src={contact.photo_url || "https://via.placeholder.com/80"}
+                    alt="avatar"
+                    className="rounded-circle"
+                    style={{ width: "80px", height: "80px", objectFit: "cover" }}
+                />
+                <div className="flex-grow-1">
                     <h5 className="card-title">{contact.full_name}</h5>
                     <p className="card-text mb-1"><strong>Email:</strong> {contact.email}</p>
                     <p className="card-text mb-1"><strong>Teléfono:</strong> {contact.phone}</p>
@@ -23,5 +29,6 @@ export const ContactCard = ({ contact }) => {
         </div>
     );
 };
+
 
 

@@ -7,34 +7,51 @@ const getState = ({ getStore, getActions, setStore }) => {
                     full_name: "Gaturro Peluso",
                     email: "peludito23@meow.com",
                     phone: "555-1234",
-                    address: "123 Plaza Pelusa"
+                    address: "123 Plaza Pelusa",
+                    photo_url: "https://i.pravatar.cc/150?u=1"
                 },
                 {
                     id: 2,
                     full_name: "Katrina Rawr",
                     email: "Katrina@meow.com",
                     phone: "555-5678",
-                    address: "456 Calle Sardina"
+                    address: "456 Calle Sardina",
+                    photo_url: "https://i.pravatar.cc/150?u=2"
                 }
             ]
         },
 
         actions: {
             loadContacts: () => {
-               
+                // Nada que cargar, es local
             },
 
             addContact: (newContact) => {
                 const store = getStore();
-                const newId = store.contacts.length > 0 ? store.contacts[store.contacts.length - 1].id + 1 : 1;
-                const updatedContacts = [...store.contacts, { ...newContact, id: newId }];
+                const newId = store.contacts.length > 0
+                    ? store.contacts[store.contacts.length - 1].id + 1
+                    : 1;
+
+                const contactWithPhoto = {
+                    ...newContact,
+                    id: newId,
+                    photo_url: `https://i.pravatar.cc/150?u=${newId}`
+                };
+
+                const updatedContacts = [...store.contacts, contactWithPhoto];
                 setStore({ contacts: updatedContacts });
             },
 
             updateContact: (updatedContact, id) => {
                 const store = getStore();
                 const updatedContacts = store.contacts.map(c =>
-                    c.id === parseInt(id) ? { ...updatedContact, id: parseInt(id) } : c
+                    c.id === parseInt(id)
+                        ? {
+                              ...updatedContact,
+                              id: parseInt(id),
+                              photo_url: c.photo_url // conserva avatar
+                          }
+                        : c
                 );
                 setStore({ contacts: updatedContacts });
             },
