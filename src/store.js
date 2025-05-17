@@ -23,7 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         actions: {
             loadContacts: () => {
-                // Nada que cargar, es local
+                
             },
 
             addContact: (newContact) => {
@@ -49,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         ? {
                               ...updatedContact,
                               id: parseInt(id),
-                              photo_url: c.photo_url // conserva avatar
+                              photo_url: c.photo_url 
                           }
                         : c
                 );
