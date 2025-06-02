@@ -1,17 +1,25 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer"; 
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop"; 
+import { Outlet, useLocation } from "react-router-dom"; 
 
-const Layout = ({ children }) => {
+export const Layout = () => {
+    const location = useLocation(); 
+
     return (
         <div className="d-flex flex-column min-vh-100">
             <Navbar />
-            <ScrollToTop />
-            <main className="flex-grow-1">{children}</main>
+            <ScrollToTop location={location}>
+                <main className="flex-grow-1">
+                    <Outlet /> 
+                </main>
+            </ScrollToTop>
             <Footer />
         </div>
     );
 };
 
-export default Layout;
+
+
+
